@@ -1,0 +1,56 @@
+.img {
+    width:100%;
+}
+.round-img {
+    border-radius:50%;
+}
+.main-top{
+    width:30%;
+}
+#main-h1 {
+    font-weight: 300;
+}
+#main-span {
+    font-weight: bold;
+}
+#main-par {
+    font-size:18px;
+}
+ul {
+    text-decoration: none;
+    list-style-type: none;
+}
+a {
+    color : black;
+    text-decoration: none;
+}
+ul a {
+    color:rgba(0,0,0,0.5);
+}
+ul a:hover {
+    color:black;
+    text-decoration: none;
+}
+h3 {
+    margin:0;
+    padding:0;
+}
+.form {
+    width:30%;
+}
+.form input[type="text"],
+.form input[type="password"]{
+    width:200px;
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,0.5);
+}
+#join {
+    font-size:12px;
+}
+#join a {
+    color:blue;
+}
+.borderless input[type="text"]{
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,0.5);
+}
