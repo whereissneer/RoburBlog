@@ -56,26 +56,35 @@
         </nav>
         <hr>
         <div class="container row justify-content-center">
-            <div class="mt-5 d-flex flex-column form align-items-center">
-                <div class="p-2">
-                    <span class="material-symbols-outlined">
-                        account_circle
-                        </span>   <input type="text" class="ml-3" placeholder="USERNAME">
-                </div>
-                <div class="p-2 mt-2">
-                    <span class="material-symbols-outlined">
-                        lock
-                        </span> <input type="password" class="ml-3" placeholder="PASSWORD">
-                </div>
-                <div class="p-2 mt-2">
-                    <input type="submit" class="ml-3 btn btn-secondary" value="LOGIN">
-                </div>
-                <div class="p-2 mt-2 align-self-start ml-5"id="join">
-                    Not a member yet ? <a>Join now !</a>
-                </div>
+            <form th:action="@{/login}" th:object="${user}" method="POST">
+                <div class="mt-5 d-flex flex-column form align-items-center">
+                    <div class="p-2">
+                        <span class="material-symbols-outlined">
+                            account_circle
+                            </span>   <input type="text" class="ml-3" placeholder="USERNAME" th:field="*{userName}">
+                    </div>
+                    <div class="p-2 mt-2">
+                        <span class="material-symbols-outlined">
+                            lock
+                        </span> <input type="password" class="ml-3" placeholder="PASSWORD" th:field="*{password}">
+                    </div>
+                    <div class="p-2 mt-2">
+                        <input type="submit" class="ml-3 btn btn-secondary" value="LOGIN">
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger col-sm-11 text-center" style="font-size:12px">    
+                        Invalid username or password.
+                    </div>
+                    <div class="p-2 mt-2 align-self-start ml-5"id="join">
+                        Not a member yet ? <a>Join now !</a>
+                    </div>
 
+                </div>
+            </form>
         </div>
+       
     </div>
-    </div>
+    <footer class="container">
+        Robert Michalski 2022 &copy;
+    </footer>
 </body>
 </html>
