@@ -4,11 +4,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
 public class SecurityConfiguration {
 
+	
+	
+	
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -20,7 +24,11 @@ public class SecurityConfiguration {
 						.antMatchers(HttpMethod.GET, "/login").permitAll()
 					    .anyRequest().authenticated()
 					    .and()
-					    .formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll();
+					    .formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
+					    .and()
+					    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+						.logoutSuccessUrl("/login").deleteCookies("JSESSIONID")
+						.invalidateHttpSession(true);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

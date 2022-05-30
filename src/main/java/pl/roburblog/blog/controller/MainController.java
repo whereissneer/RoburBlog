@@ -23,10 +23,5 @@ public class MainController {
 	public String getNewPostForm() {
 		return "newPostForm";
 	}
-	@GetMapping("/attemptLogin")
-	public String attemptLogin(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		return "redirect:/";
-	}
+	
 }
