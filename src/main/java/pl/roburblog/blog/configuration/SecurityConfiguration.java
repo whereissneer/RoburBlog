@@ -15,6 +15,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests((authz) -> {
 				try {
 					authz
+						.antMatchers(HttpMethod.GET, "/styles/**").permitAll()
 						.antMatchers(HttpMethod.GET, "/").permitAll()
 						.antMatchers(HttpMethod.GET, "/login").permitAll()
 					    .anyRequest().authenticated()
