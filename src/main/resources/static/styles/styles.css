@@ -84,6 +84,6 @@ h3 {
     font-size:18px;
 }
 .subtext-date {
-    vertical-align: sub;
+    vertical-align: super;
     font-size:12px;
 }

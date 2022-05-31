@@ -117,11 +117,11 @@
                     </form>
                 </div>
             </div>
-            <div class="p-2 d-flex flex-column mt-2 align-self-start ml-5 row no-gutters">
-                <div class="p-2 d-flex flex-row" th:each = "comment : ${comments}">
-                    <div class="p-2 ml-5 col comment-user" th:text="${comment.user}"></div>
-                    <div class="p-2 col-5" th:text="${comment.commentContent}"></div>
-                    <div class="p-2 subtext-date col" ><sub th:text="${#strings.substring(comment.createdAt,0,10)}"></sub></div>
+            <div class="container p-2 d-flex flex-column mt-2 align-self-start ml-5 row">
+                <div class="p-2 d-flex flex-row" th:each = "c : ${comments}">
+                    <div class="p-2 ml-5 col comment-user" th:text="${c.user}"></div>
+                    <div class="p-2 col-5" th:text="${c.commentContent}"></div>
+                    <div class="p-2 subtext-date col" th:text="${#strings.substring(c.createdAt,0,10)}" ></div>
                     
                 </div>
                 <hr>
