@@ -18,5 +18,10 @@ public class CommentServiceImpl implements CommentService{
 	public List<Comment> getAllCommentsOfPost(Long postId) {
 		return commentRepository.getCommentsByPost(postId);
 	}
+
+	@Override
+	public Comment saveComment(Comment comment) {
+		return commentRepository.save(comment);
+	}
 	
 }

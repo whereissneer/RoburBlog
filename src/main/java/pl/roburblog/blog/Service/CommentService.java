@@ -10,4 +10,5 @@ import pl.roburblog.blog.entity.Comment;
 public interface CommentService {
 	List<Comment> getAllCommentsOfPost(Long postId);
 	
+	Comment saveComment(Comment comment);
 }

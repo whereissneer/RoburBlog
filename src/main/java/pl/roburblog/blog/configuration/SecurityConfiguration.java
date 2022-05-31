@@ -28,6 +28,7 @@ public class SecurityConfiguration{
 						.antMatchers(HttpMethod.GET, "/").permitAll()
 						.antMatchers(HttpMethod.GET, "/login").permitAll()
 						.antMatchers(HttpMethod.GET, "/post/**").permitAll()
+						.antMatchers(HttpMethod.POST, "/post/**").permitAll()
 					    .anyRequest().authenticated()
 					    .and()
 					    .formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()

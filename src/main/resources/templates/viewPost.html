@@ -102,13 +102,13 @@
                     <img src="../static/icons/default-user.png" th:src="@{/icons/default-user.png}" alt="">
                 </div>
                 <div class="p-2">
-                    <form th:action="@{/post/{id}/addComment (id=${post.id})}" method="POST">
+                    <form th:action="@{/post/{id}/addComment (id=${post.id})}" th:object="${comment}" method="POST">
                         <div class="d-flex flex-column align-items-center">
                             <div class="p-2">
-                                <input type="text" placeholder="USERNAME" class="comment-username text-center" required>
+                                <input type="text" placeholder="USERNAME" class="comment-username text-center" th:field="*{user}" required>
                             </div>
                             <div class="p-2 mt-2">
-                               <textarea cols="50" rows="3" id="comment-area" required></textarea>
+                               <textarea cols="50" rows="3" id="comment-area" th:field="*{commentContent}" required></textarea>
                             </div>
                             <div class="p-2 align-self-end">
                                 <input type="submit" class="ml-3 btn btn-secondary" value="ADD">
