@@ -102,20 +102,29 @@
                     <img src="../static/icons/default-user.png" th:src="@{/icons/default-user.png}" alt="">
                 </div>
                 <div class="p-2">
-                    <form th:action="@{/login}" method="POST">
+                    <form th:action="@{/post/{id}/addComment (id=${post.id})}" method="POST">
                         <div class="d-flex flex-column align-items-center">
                             <div class="p-2">
-                                <input type="text" placeholder="USERNAME" class="comment-username text-center">
+                                <input type="text" placeholder="USERNAME" class="comment-username text-center" required>
                             </div>
                             <div class="p-2 mt-2">
-                               <textarea cols="50" rows="3"></textarea>
+                               <textarea cols="50" rows="3" id="comment-area" required></textarea>
                             </div>
-                            <div class="p-2 mt-2">
-                                <input type="submit" class="ml-3 btn btn-secondary" value="LOGIN">
+                            <div class="p-2 align-self-end">
+                                <input type="submit" class="ml-3 btn btn-secondary" value="ADD">
                             </div>
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="p-2 d-flex flex-column mt-2 align-self-start ml-5 row no-gutters">
+                <div class="p-2 d-flex flex-row" th:each = "comment : ${comments}">
+                    <div class="p-2 ml-5 col comment-user" th:text="${comment.user}"></div>
+                    <div class="p-2 col-5" th:text="${comment.commentContent}"></div>
+                    <div class="p-2 subtext-date col" ><sub th:text="${#strings.substring(comment.createdAt,0,10)}"></sub></div>
+                    
+                </div>
+                <hr>
             </div>
         </div>
     </div>

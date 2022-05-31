@@ -1,7 +1,9 @@
 package pl.roburblog.blog.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,13 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 
 @Entity
@@ -34,17 +31,21 @@ public class Post {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="author_id", referencedColumnName = "id")
 	private User owner;
+	
+	@OneToMany(mappedBy = "postToMap", cascade = CascadeType.ALL)
+	private Set<Comment> commentsIds = new HashSet<>();
 
 	public Post() {
 		super();
 	}
 
-	public Post(String postTitle, String postContent, Timestamp createdAt, User owner) {
+	public Post(String postTitle, String postContent, Timestamp createdAt, User owner, Set<Comment> commentsIds) {
 		super();
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 		this.createdAt = createdAt;
 		this.owner = owner;
+		this.commentsIds = commentsIds;
 	}
 
 	public Long getId() {
@@ -87,9 +88,17 @@ public class Post {
 		this.owner = owner;
 	}
 
+	public Set<Comment> getCommentsIds() {
+		return commentsIds;
+	}
+
+	public void setCommentsIds(Set<Comment> commentsIds) {
+		this.commentsIds = commentsIds;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(createdAt, id, owner, postContent, postTitle);
+		return Objects.hash(commentsIds, createdAt, id, owner, postContent, postTitle);
 	}
 
 	@Override
@@ -101,17 +110,18 @@ public class Post {
 		if (getClass() != obj.getClass())
 			return false;
 		Post other = (Post) obj;
-		return Objects.equals(createdAt, other.createdAt) && Objects.equals(id, other.id)
-				&& Objects.equals(owner, other.owner) && Objects.equals(postContent, other.postContent)
-				&& Objects.equals(postTitle, other.postTitle);
+		return Objects.equals(commentsIds, other.commentsIds) && Objects.equals(createdAt, other.createdAt)
+				&& Objects.equals(id, other.id) && Objects.equals(owner, other.owner)
+				&& Objects.equals(postContent, other.postContent) && Objects.equals(postTitle, other.postTitle);
 	}
 
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", postTitle=" + postTitle + ", postContent=" + postContent + ", createdAt="
-				+ createdAt + ", owner=" + owner + "]";
+				+ createdAt + ", owner=" + owner + ", commentsIds=" + commentsIds + "]";
 	}
+
 	
-	
+
 	
 }

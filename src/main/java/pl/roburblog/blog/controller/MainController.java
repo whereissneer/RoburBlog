@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import pl.roburblog.blog.Service.CommentService;
 import pl.roburblog.blog.Service.PostService;
 import pl.roburblog.blog.entity.User;
 
@@ -14,6 +15,9 @@ public class MainController {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@GetMapping({"/", ""})
 	public String getMainPage(Model model) {
@@ -32,6 +36,9 @@ public class MainController {
 	}
 	@GetMapping("/post/{id}")
 	public String viewPost(Model model, @PathVariable Long id) {
+		if(!commentService.getAllCommentsOfPost(id).isEmpty()) {
+			model.addAttribute("comments", commentService.getAllCommentsOfPost(id));
+		}
 		model.addAttribute("post", postService.getById(id));
 		return "viewPost";
 		
