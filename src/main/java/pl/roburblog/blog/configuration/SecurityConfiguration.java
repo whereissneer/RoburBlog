@@ -24,6 +24,7 @@ public class SecurityConfiguration{
 				try {
 					authz
 						.antMatchers(HttpMethod.GET, "/styles/**").permitAll()
+						.antMatchers(HttpMethod.GET, "/icons/**").permitAll()
 						.antMatchers(HttpMethod.GET, "/").permitAll()
 						.antMatchers(HttpMethod.GET, "/login").permitAll()
 						.antMatchers(HttpMethod.GET, "/post/**").permitAll()

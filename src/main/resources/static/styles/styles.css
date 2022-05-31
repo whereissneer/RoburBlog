@@ -69,3 +69,11 @@ h3 {
     color:rgba(0,0,255,0.9);
     text-decoration: underline;
 }
+.default-user-icon {
+    width:50px;
+    border-radius:50%;
+}
+.comment-username {
+    border:none;
+    border-bottom:1px solid rgba(0,0,0,0.3)
+}
