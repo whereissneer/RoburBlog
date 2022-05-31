@@ -55,7 +55,7 @@
             </div>
         </nav>
         <hr>
-        <div class="container mt-5" th:each="post: ${posts}">
+        <div class="container mt-5">
             <div class="container d-flex flex-column">
                 <div class="d-flex flex-row justify-content-between">
                     <div class="d-flex flex-row">
@@ -79,13 +79,12 @@
            
             <div class="container d-flex flex-column">
                 <div class="p-2">
-                    <a th:href="@{/post/{id}(id=${post.id})}" class="title-link"><h3 th:text="${post.postTitle}"></h3></a>
+                    <a class="title-link"><h3 th:text="${post.postTitle}"></h3></a>
                 </div>
                 <div class="container p-2" >
-                    <p th:text="${#strings.substring(post.postContent,0,400)+'...'}"></p>
+                    <p th:text="${post.postContent}"></p>
                 </div>
             </div>
-            <hr>
         </div>
     </div>
     <footer class="container">

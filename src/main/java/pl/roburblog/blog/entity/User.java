@@ -1,6 +1,7 @@
 package pl.roburblog.blog.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,6 +22,21 @@ public class User {
 	private String role = "ROLE_USER";
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 	private Set<Post> ownedPostsIds = new HashSet<>();
+	
+	
+	public User() {
+		super();
+	}
+	
+	public User(String userName, String password, String email, String role, Set<Post> ownedPostsIds) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		this.ownedPostsIds = ownedPostsIds;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -56,6 +72,31 @@ public class User {
 	}
 	public void setOwnedPostsIds(Set<Post> ownedPostsIds) {
 		this.ownedPostsIds = ownedPostsIds;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, id, ownedPostsIds, password, role, userName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(ownedPostsIds, other.ownedPostsIds) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", role="
+				+ role + ", ownedPostsIds=" + ownedPostsIds + "]";
 	}
 	
 	
