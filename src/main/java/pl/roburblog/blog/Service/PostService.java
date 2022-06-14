@@ -11,4 +11,6 @@ public interface PostService {
 	Post getById(Long id);
 	
 	List<Post> getAllPosts();
+	
+	void createPost(Post post);
 }

@@ -54,6 +54,9 @@
                     <a th:href="@{/login}" sec:authorize="isAnonymous()"><li class="d-flex">
                         Login
                     </li></a>
+                    <a th:href="@{/addNewPostForm}" sec:authorize="isAuthenticated()"><li class="d-flex">
+                        +
+                    </li></a>
                 </ul>
             </div>
         </nav>

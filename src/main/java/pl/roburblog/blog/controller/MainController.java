@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,10 +38,19 @@ public class MainController {
 //		model.addAttribute("user", user);
 //		return "login";
 //	}
-	@GetMapping("/addNewPost")
-	public String getNewPostForm() {
+	@GetMapping("/addNewPostForm")
+	public String getNewPostForm(Model model) {
+		Post post = new Post();
+		model.addAttribute("post", post);
 		return "newPostForm";
 	}
+	
+	@PostMapping("/addNewPost")
+	public String addNewPost(@ModelAttribute("post") Post post) {
+		postService.createPost(post);
+		return "redirect:/";
+	}
+	
 	@GetMapping("/post/{id}")
 	public String viewPost(Model model, @PathVariable Long id) {
 		if(!commentService.getAllCommentsOfPost(id).isEmpty()) {
