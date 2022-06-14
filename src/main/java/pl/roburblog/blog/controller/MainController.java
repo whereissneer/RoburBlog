@@ -31,12 +31,12 @@ public class MainController {
 		model.addAttribute("posts", postService.getAllPosts());
 		return "index";
 	}
-	@GetMapping("/login")
-	public String getLoginPage(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
-		return "login";
-	}
+//	@GetMapping("/login")
+//	public String getLoginPage(Model model) {
+//		User user = new User();
+//		model.addAttribute("user", user);
+//		return "login";
+//	}
 	@GetMapping("/addNewPost")
 	public String getNewPostForm() {
 		return "newPostForm";
