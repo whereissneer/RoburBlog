@@ -48,7 +48,7 @@
                     <a href="#"><li class="d-flex">
                         Search <span class="material-symbols-outlined align-self-center ml-3">search</span>
                     </li></a>
-                    <a th:href="@{logout}" sec:authorize="isAuthenticated()"><li class="d-flex">
+                    <a th:href="@{/logout}" sec:authorize="isAuthenticated()"><li class="d-flex">
                         Logout
                     </li></a>
                     <a th:href="@{/login}" sec:authorize="isAnonymous()"><li class="d-flex">
