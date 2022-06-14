@@ -1,10 +1,10 @@
 package pl.roburblog.blog.controller;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import pl.roburblog.blog.Service.CommentService;
 import pl.roburblog.blog.Service.PostService;
 import pl.roburblog.blog.entity.Comment;
 import pl.roburblog.blog.entity.Post;
-import pl.roburblog.blog.entity.User;
 
 @Controller
 public class MainController {
@@ -43,12 +42,14 @@ public class MainController {
 		model.addAttribute("posts", sortedPosts);
 		return "index";
 	}
+	
 //	@GetMapping("/login")
 //	public String getLoginPage(Model model) {
 //		User user = new User();
 //		model.addAttribute("user", user);
 //		return "login";
 //	}
+	
 	@GetMapping("/addNewPostForm")
 	public String getNewPostForm(Model model) {
 		Post post = new Post();
@@ -57,7 +58,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/addNewPost")
-	public String addNewPost(@ModelAttribute("post") Post post) {
+	public String addNewPost(@ModelAttribute("post") Post post, Principal principal) {
 		post.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		postService.createPost(post);
 		return "redirect:/";
@@ -66,7 +67,11 @@ public class MainController {
 	@GetMapping("/post/{id}")
 	public String viewPost(Model model, @PathVariable Long id) {
 		if(!commentService.getAllCommentsOfPost(id).isEmpty()) {
-			model.addAttribute("comments", commentService.getAllCommentsOfPost(id));
+			List<Comment> sortedComments = new ArrayList<>();
+			sortedComments = commentService.getAllCommentsOfPost(id).stream()
+					.sorted(Comparator.comparing(Comment::getCreatedAt).reversed())
+					.collect(Collectors.toList());
+			model.addAttribute("comments", sortedComments);
 		}
 		Comment comment = new Comment();
 		model.addAttribute("post", postService.getById(id));
@@ -74,6 +79,7 @@ public class MainController {
 		return "viewPost";
 		
 	}
+	
 	@RequestMapping(value="/post/{id}/addComment", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addComment(@PathVariable Long id, @ModelAttribute("comment") Comment comment) {
 		Comment commentToSave = new Comment();
