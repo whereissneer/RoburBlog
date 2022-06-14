@@ -1,6 +1,11 @@
 package pl.roburblog.blog.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +34,13 @@ public class MainController {
 
 	@GetMapping({"/", ""})
 	public String getMainPage(Model model) {
-		model.addAttribute("posts", postService.getAllPosts());
+		
+		List<Post> sortedPosts = new ArrayList<>();
+		
+		sortedPosts = postService.getAllPosts().stream()
+				.sorted(Comparator.comparing(Post::getCreatedAt).reversed())
+				.collect(Collectors.toList());
+		model.addAttribute("posts", sortedPosts);
 		return "index";
 	}
 //	@GetMapping("/login")
@@ -47,6 +58,7 @@ public class MainController {
 	
 	@PostMapping("/addNewPost")
 	public String addNewPost(@ModelAttribute("post") Post post) {
+		post.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 		postService.createPost(post);
 		return "redirect:/";
 	}
